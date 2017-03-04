@@ -18,6 +18,7 @@
   var dbController = function(includes, settings, consoleLevel, secrets) {
 
     var db;
+    var dbCollection;
 
     this.initDB = function() {
         var connectionString = "";
@@ -30,6 +31,7 @@
                 }
             }
         }
+        
         connectionString += settings.database.connectionDomain + ":";
         connectionString += settings.database.connectionPort + "/";
         connectionString += settings.database.databaseName;
@@ -42,8 +44,10 @@
                     console.log(Math.round(new Date().getTime() / 1000).toString(), " | dbController::initDB(): Successfully connected to database:", database.databaseName);
                 }
 
-                if (database.collection('content').find()) {
-                    database.collection('content', function(err, collection) {
+                var cmsContentCollection;
+
+                if (database.collection('CMScontent').find()) {
+                    cmsContentCollection = database.collection('CMScontent', function(err, collection) {
                         if (err) {
                             console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::initDB(): Error using collection: ", err);
                         } else {
@@ -51,7 +55,7 @@
                         }
                     });
                 } else {
-                    database.createCollection('content', {strict:true}, function(err, collection) {
+                    cmsContentCollection = database.createCollection('CMScontent', {strict:true}, function(err, collection) {
                         if (err) {
                             console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::initDB(): Error creating collection: ", err);
                         } else {
@@ -60,12 +64,58 @@
                     });
                 }
                 db = database;
+                dbCollection = cmsContentCollection;
+
+                //TODO: remove this trycatch block
+                // try {
+                //     cmsContentCollection.insertOne( { "name": "test1", "content": "test!", "createdTime": Math.round(new Date().getTime() / 1000).toString() } );
+                // } catch (e) {
+                //     console.log(e);
+                // };
             }
         });
     };
 
     this.getcurrentDatabase = function() {
         return db;
+    }
+
+    this.getEntryByName = function(entryName, foundCallback) {
+        var database = this.getcurrentDatabase();
+
+        try {
+            var cmsContentCollection = database.collection('CMScontent', function(err, collection) {
+                if (err) {
+                    console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::getEntryByName(): Error reading record: ", err);
+                    foundCallback(err);
+                } else {
+                    collection.find({ $query: { "name": entryName } }).sort({"createdTime": 1}).limit(1).toArray(function (err, item) {
+                        foundCallback(err, item);
+                    });
+                }
+            });
+        } catch (err) {
+            console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::getEntryByName(): Error reading collection: ", err);
+            foundCallback(err);
+        }
+    }
+
+    this.getEntryByID = function(entryName, errorCallback, foundCallback) {
+        var database = this.getcurrentDatabase();
+
+        try {
+            var cmsContentCollection = database.collection('CMScontent', function(err, collection) {
+                if (err) {
+                    console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::getEntryByID(): Error reading record: ", err);
+                    errorCallback(err);
+                } else {
+                    collection.findOne({"name": entryName, $orderby: { "createdTime" : 1 } }, foundCallback);
+                }
+            });
+        } catch (err) {
+            console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::getEntryByID(): Error reading collection: ", err);
+            errorCallback(err);
+        }
     }
 
     this.init = function () {

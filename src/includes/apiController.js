@@ -24,14 +24,14 @@
         console.log(Math.round(new Date().getTime() / 1000).toString(), " | endPoints::setupAPIEndPoints(): Loading API Endpoints");
       }
 
-      includes.app.get('/byid', includes.apiCallbacks.getEntry);
+      includes.app.get('/byid/*', includes.apiCallbacks.getByID);
       if (2 & consoleLevel) {
-        console.log("  [GET]::  /byid");
+        console.log("  [GET]::  /byid/*");
       }
 
-      includes.app.get('/byname', includes.apiCallbacks.getEntry);
+      includes.app.get('/byname/*', includes.apiCallbacks.getByName);
       if (2 & consoleLevel) {
-        console.log("  [GET]::  /byname");
+        console.log("  [GET]::  /byname/*");
       }
 
       if (2 & consoleLevel) {
