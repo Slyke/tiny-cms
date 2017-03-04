@@ -1,0 +1,21 @@
+{
+  "server" : {
+    "consoleLevel" : -1
+  },
+  "database":{
+    "type":"mongoDB",
+    "connectionProtocol":"mongodb",
+    "connectionDomain":"ds157278.mlab.com",
+    "connectionPort":"57278",
+    "databaseName":"sea-em-es"
+  },
+  "network": {
+    "http" : {
+      "port" : "14899",
+      "envPort" : "HTTPCONPORT",
+      "ip" : "0.0.0.0"
+    }
+  },
+  "files" : {
+  }
+}
