@@ -38,11 +38,12 @@
           (function(index){
             includes.dbController.addEntry(index, addEntries.entries[index].content, null, function(err, result) {
               if (!err && result) {
-                entriesAdded.push(index);
+                var pushObj = {};
+                pushObj[index] = result.ops;
+                entriesAdded.push(pushObj);
               } else {
                 entriesFailed.push(index);
               }
-              // console.log((entriesAdded.length + entriesFailed.length), Object.keys(addEntries.entries).length);
               if ((entriesAdded.length + entriesFailed.length) >= Object.keys(addEntries.entries).length) {
                 res.send({
                   "result":{

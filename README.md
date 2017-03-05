@@ -258,7 +258,7 @@ POST URL:
 JSON Structure:
 ```js
     {
-        "entries":{
+        "entries": {
             EntryName: { "content": YourEntryHere},
             anotherEntryName: {"content": YourEntryHere},
             ...
@@ -270,9 +270,42 @@ Example POST JSON Body:
 
 ```js
     {
-        "entries":{
+        "entries": {
             "testEntry": { "content": "First Test Entry!"},
             "anotherEntry": {"content": "Another Entry!"}
+        }
+    }
+```
+
+
+Example reply JSON when adding:
+
+```js
+    {
+        "result": {
+            "entriesAdded": [
+            {
+                "testEntry": [
+                {
+                    "name": "testEntry",
+                    "content": "First Test Entry!",
+                    "createdTime": "1488753860",
+                    "_id": "58bc94c398d9b244a43c3127"
+                }
+                ]
+            },
+            {
+                "anotherEntry": [
+                {
+                    "name": "anotherEntry1",
+                    "content": "Another Entry!",
+                    "createdTime": "1488753860",
+                    "_id": "58bc94c398d9b244a43c3128"
+                }
+                ]
+            }
+            ],
+            "failedEntries": []
         }
     }
 ```
