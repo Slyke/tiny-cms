@@ -8,7 +8,7 @@ A WIP tiny CMS built in NodeJS
 
 #### Get entry by ID
 
-This will return an entry by ID, entries by do not change (Unless you manually change them).
+This will return an entry by ID, entries by do not change (Unless you manually change them in the database).
 
 ```
     /byid/[id1]/[id2]/[id3]/...
@@ -38,7 +38,7 @@ Example JSON Result:
 
 #### Get entry by Name
 
-You can update an entry via it's name. The latest entry via a name will always be returned. You can still use older entries if you use their IDs.
+You can update an entry via its name. The latest entry via a name will always be returned. You can still use older entries if you use their IDs.
 
 ```
     /byname/[name1]/[name2]/[name3]/...
