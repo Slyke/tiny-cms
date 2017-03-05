@@ -5,7 +5,7 @@ A WIP tiny CMS built in NodeJS
 
 ## Setting Up (Native)
 1. Copy `secrets.json.example` and rename to `secrets.json`
-2. Update with your MongoDB details.
+2. Update `secrets.json` with your MongoDB details.
 3. Edit `settings.json` so that it uses your MongoDB server.
 4. Run `npm install` to install dependencies.
 5. Run `node app.js` or `npm start` to start the service.
