@@ -24,36 +24,16 @@
         console.log(Math.round(new Date().getTime() / 1000).toString(), " | endPoints::setupAPIEndPoints(): Loading API Endpoints");
       }
 
-      includes.app.get('/detailsbyid/*', function(req, res) { includes.apiCallbacks.getByID(req, res, true); });
-      if (2 & consoleLevel) {
-        console.log("  [GET]::  /detailsbyid/*");
-      }
-
-      includes.app.get('/detailsbyname/*', function(req, res) { includes.apiCallbacks.getByName(req, res, true); });
-      if (2 & consoleLevel) {
-        console.log("  [GET]::  /detailsbyname/*");
-      }
-
-      includes.app.get('/byid/*', function(req, res) { includes.apiCallbacks.getByID(req, res, false); });
+      includes.app.get('/byid/*', function(req, res) { includes.apiCallbacks.getByID(req, res, "/byid", false); });
       if (2 & consoleLevel) {
         console.log("  [GET]::  /byid/*");
       }
 
-      includes.app.get('/byname/*', function(req, res) { includes.apiCallbacks.getByName(req, res, false); });
+      includes.app.get('/byname/*', function(req, res) { includes.apiCallbacks.getByName(req, res, "/byname", false); });
       if (2 & consoleLevel) {
         console.log("  [GET]::  /byname/*");
       }
 
-      // includes.app.get('/singlebyid/*', includes.apiCallbacks.getSingleByID);
-      // if (2 & consoleLevel) {
-      //   console.log("  [GET]::  /singlebyid/*");
-      // }
-
-      // includes.app.get('/singlebyname/*', includes.apiCallbacks.getSingleByName);
-      // if (2 & consoleLevel) {
-      //   console.log("  [GET]::  /singlebyname/*");
-      // }
- 
       includes.app.get('/single/byname/*', includes.apiCallbacks.getSingleByName);
       if (2 & consoleLevel) {
         console.log("  [GET]::  /single/byname/*");
@@ -62,6 +42,16 @@
       includes.app.get('/single/byid/*', includes.apiCallbacks.getSingleByID);
       if (2 & consoleLevel) {
         console.log("  [GET]::  /single/byid/*");
+      }
+
+      includes.app.get('/details/byid/*', function(req, res) { includes.apiCallbacks.getByID(req, res, "/details/byid", true); });
+      if (2 & consoleLevel) {
+        console.log("  [GET]::  /details/byid/*");
+      }
+
+      includes.app.get('/details/byname/*', function(req, res) { includes.apiCallbacks.getByName(req, res, "/details/byname", true); });
+      if (2 & consoleLevel) {
+        console.log("  [GET]::  /details/byname/*");
       }
 
       if (2 & consoleLevel) {

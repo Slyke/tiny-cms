@@ -95,13 +95,13 @@ The result will be a plaintext file. If the result doesn't exist, or there is an
 This will return an entry by ID, entries by do not change (Unless you manually change them in the database).
 
 ```
-    /detailsbyid/[id1]/[id2]/[id3]/...
+    /details/byid/[id1]/[id2]/[id3]/...
 ```
 
 Example:
 
 ```
-    /detailsbyid/58bb3977ac73503da0c87455/58bb3977ac73503da0c67365/58bb3977ac73503da0c91056
+    /details/byid/58bb3977ac73503da0c87455/58bb3977ac73503da0c67365/58bb3977ac73503da0c91056
 ```
 
 Example JSON Result:
@@ -128,13 +128,13 @@ Example JSON Result:
 You can update an entry via its name. The latest entry via a name will always be returned. You can still use older entries if you use their IDs.
 
 ```
-    /detailsbyname/[name1]/[name2]/[name3]/...
+    /details/byname/[name1]/[name2]/[name3]/...
 ```
 
 Example:
 
 ```
-    /detailsbyname/test1/test2/test3
+    /details/byname/test1/test2/test3
 ```
 
 Example JSON Result:

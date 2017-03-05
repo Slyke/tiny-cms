@@ -22,11 +22,9 @@
       });
     };
 
-    this.getByName = function(req, res, detailed) {
+    this.getByName = function(req, res, urlRemove, detailed) {
 
-      var nameList = req.url.split('/');
-
-      nameList.splice(0, 2); // Remove the "" and "/" on the front of the array.
+      var nameList = req.url.replace(urlRemove, "").split('/');
 
       var jsonReturn = {};
       jsonReturn.results = {};
@@ -74,11 +72,9 @@
       }
     };
     
-    this.getByID = function(req, res, detailed) {
+    this.getByID = function(req, res, urlRemove, detailed) {
 
-      var idList = req.url.split('/');
-
-      idList.splice(0, 2); // Remove the "" and "/" on the front of the array.
+      var idList = req.url.replace(urlRemove, "").split('/');
 
       var jsonReturn = {};
       jsonReturn.results = {};
