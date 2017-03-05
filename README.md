@@ -41,7 +41,7 @@ Example JSON Result:
 You can update an entry via it's name. The latest entry via a name will always be returned. You can still use older entries if you use their IDs.
 
 ```
-    /byname/[id1]/[id2]/[id3]/...
+    /byname/[name1]/[name2]/[name3]/...
 ```
 
 Example:
