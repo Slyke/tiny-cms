@@ -24,6 +24,16 @@
         console.log(Math.round(new Date().getTime() / 1000).toString(), " | endPoints::setupAPIEndPoints(): Loading API Endpoints");
       }
 
+      includes.app.get('/detailsbyid/*', function(req, res) { includes.apiCallbacks.getByID(req, res, true); });
+      if (2 & consoleLevel) {
+        console.log("  [GET]::  /detailsbyid/*");
+      }
+
+      includes.app.get('/detailsbyname/*', function(req, res) { includes.apiCallbacks.getByName(req, res, true); });
+      if (2 & consoleLevel) {
+        console.log("  [GET]::  /detailsbyname/*");
+      }
+
       includes.app.get('/byid/*', includes.apiCallbacks.getByID);
       if (2 & consoleLevel) {
         console.log("  [GET]::  /byid/*");

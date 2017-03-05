@@ -22,7 +22,7 @@
       });
     };
 
-    this.getByName = function(req, res) {
+    this.getByName = function(req, res, detailed) {
 
       var nameList = req.url.split('/');
 
@@ -47,7 +47,11 @@
               } else {
                 if (result[0] && result[0].content) {
                   var objContent = {};
-                  objContent[nameList[index]] = result[0].content;
+                  if (detailed) {
+                    objContent[nameList[index]] = result[0];
+                  } else {
+                    objContent[nameList[index]] = result[0].content;
+                  }
                   jsonReturn.results.push(objContent);
                 } else {
                   jsonReturn.noEntry.push(nameList[index]);
@@ -70,7 +74,7 @@
       }
     };
     
-    this.getByID = function(req, res) {
+    this.getByID = function(req, res, detailed) {
 
       var idList = req.url.split('/');
 
@@ -95,7 +99,11 @@
               } else {
                 if (result && result.content) {
                   var objContent = {};
-                  objContent[idList[index]] = result.content;
+                  if (detailed) {
+                    objContent[idList[index]] = result;
+                  } else {
+                    objContent[idList[index]] = result.content;
+                  }
                   jsonReturn.results.push(objContent);
                 } else {
                   jsonReturn.noEntry.push(idList[index]);
