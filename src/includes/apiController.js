@@ -44,14 +44,24 @@
         console.log("  [GET]::  /byname/*");
       }
 
-      includes.app.get('/singlebyid/*', includes.apiCallbacks.getSingleByID);
+      // includes.app.get('/singlebyid/*', includes.apiCallbacks.getSingleByID);
+      // if (2 & consoleLevel) {
+      //   console.log("  [GET]::  /singlebyid/*");
+      // }
+
+      // includes.app.get('/singlebyname/*', includes.apiCallbacks.getSingleByName);
+      // if (2 & consoleLevel) {
+      //   console.log("  [GET]::  /singlebyname/*");
+      // }
+ 
+      includes.app.get('/single/byname/*', includes.apiCallbacks.getSingleByName);
       if (2 & consoleLevel) {
-        console.log("  [GET]::  /singlebyid/*");
+        console.log("  [GET]::  /single/byname/*");
       }
 
-      includes.app.get('/singlebyname/*', includes.apiCallbacks.getSingleByName);
+      includes.app.get('/single/byid/*', includes.apiCallbacks.getSingleByID);
       if (2 & consoleLevel) {
-        console.log("  [GET]::  /singlebyname/*");
+        console.log("  [GET]::  /single/byid/*");
       }
 
       if (2 & consoleLevel) {

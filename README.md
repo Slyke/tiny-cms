@@ -65,13 +65,13 @@ Example JSON Result:
 #### Get Single Entry Without JSON Wrappers by ID:
 
 ```
-    /singlebyid/[id]
+    /single/byid/[id]
 ```
 
 Example:
 
 ```
-    /singlebyid/58bb3977ac73503da0c87455
+    /single/byid/58bb3977ac73503da0c87455
 ```
 
 The result will be a plaintext file. If the result doesn't exist, or there is an error then an empty response will be returned.
@@ -79,13 +79,13 @@ The result will be a plaintext file. If the result doesn't exist, or there is an
 #### Get Single Entry Without JSON wrappers by Name:
 
 ```
-    /singlebyname/[name]
+    /single/byname/[name]
 ```
 
 Example:
 
 ```
-    /singlebyid/test1
+    /single/byid/test1
 ```
 
 The result will be a plaintext file. If the result doesn't exist, or there is an error then an empty response will be returned.
@@ -101,7 +101,7 @@ This will return an entry by ID, entries by do not change (Unless you manually c
 Example:
 
 ```
-    /byid/58bb3977ac73503da0c87455/58bb3977ac73503da0c67365/58bb3977ac73503da0c91056
+    /detailsbyid/58bb3977ac73503da0c87455/58bb3977ac73503da0c67365/58bb3977ac73503da0c91056
 ```
 
 Example JSON Result:

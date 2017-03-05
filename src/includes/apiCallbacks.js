@@ -130,7 +130,7 @@
 
       var requestedIDArr = req.url.split('/');
 
-      requestedIDArr.splice(0, 2); // Remove the "" and "/" on the front of the array.
+      requestedIDArr.splice(0, 3); // Remove the "" and "/" on the front of the array.
 
       var requestedID = requestedIDArr[0];
 
@@ -157,7 +157,7 @@
 
       var requestedNameArr = req.url.split('/');
 
-      requestedNameArr.splice(0, 2); // Remove the "" and "/" on the front of the array.
+      requestedNameArr.splice(0, 3); // Remove the "" and "/" on the front of the array.
 
       var requestedName = requestedNameArr[0];
 
