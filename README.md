@@ -252,7 +252,7 @@ Example JSON Result:
 
 POST URL:
 ```
-    /all
+    /add
 ```
 
 JSON Structure:
