@@ -7,7 +7,8 @@
     "connectionProtocol":"mongodb",
     "connectionDomain":"ds157278.mlab.com",
     "connectionPort":"57278",
-    "databaseName":"sea-em-es"
+    "databaseName":"sea-em-es",
+    "contentCollectionName": "CMScontent"
   },
   "network": {
     "http" : {

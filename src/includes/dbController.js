@@ -20,6 +20,7 @@
 
     var db;
     var dbCollection;
+    var collectionName;
 
     this.initDB = function() {
         var connectionString = "";
@@ -47,8 +48,8 @@
 
                 var cmsContentCollection;
 
-                if (database.collection('CMScontent').find()) {
-                    cmsContentCollection = database.collection('CMScontent', function(err, collection) {
+                if (database.collection(collectionName).find()) {
+                    cmsContentCollection = database.collection(collectionName, function(err, collection) {
                         if (err) {
                             console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::initDB(): Error using collection: ", err);
                         } else {
@@ -56,7 +57,7 @@
                         }
                     });
                 } else {
-                    cmsContentCollection = database.createCollection('CMScontent', {strict:true}, function(err, collection) {
+                    cmsContentCollection = database.createCollection(collectionName, {strict:true}, function(err, collection) {
                         if (err) {
                             console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::initDB(): Error creating collection: ", err);
                         } else {
@@ -67,7 +68,7 @@
                 db = database;
                 dbCollection = cmsContentCollection;
 
-                //TODO: remove this trycatch block
+                //TODO: remove this trycatch block. For debug purposes.
                 // try {
                 //     cmsContentCollection.insertOne( { "name": "test1", "content": "test!", "createdTime": Math.round(new Date().getTime() / 1000).toString() } );
                 // } catch (e) {
@@ -85,7 +86,7 @@
         var database = this.getcurrentDatabase();
 
         try {
-            var cmsContentCollection = database.collection('CMScontent', function(err, collection) {
+            var cmsContentCollection = database.collection(collectionName, function(err, collection) {
                 if (err) {
                     console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::getEntryByName(): Error reading record: ", err);
                     foundCallback(err);
@@ -105,7 +106,7 @@
         var database = this.getcurrentDatabase();
 
         try {
-            var cmsContentCollection = database.collection('CMScontent', function(err, collection) {
+            var cmsContentCollection = database.collection(collectionName, function(err, collection) {
                 if (err) {
                     console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::getEntryByID(): Error reading record: ", err);
                     foundCallback(err);
@@ -131,6 +132,9 @@
     }
 
     this.init = function () {
+
+      collectionName = settings.database.contentCollectionName;
+
       this.initDB();
 
       if (1 & consoleLevel || consoleLevel < 0) {
