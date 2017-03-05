@@ -279,6 +279,8 @@ Example POST JSON Body:
 
 The server will reply with details about the entries that you just added.
 
+When you add an entry, the name that you used will be the name you use when getting back the entry. If an entry with the name you added doesn't exist, it will be created automatically. Adding an entry with a name that already exists will still keep the older entry, but you must use that entry's ID to get it (since you just added a newer one).
+
 Example reply JSON when adding:
 
 ```js
