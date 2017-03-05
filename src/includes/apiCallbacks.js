@@ -22,6 +22,92 @@
       });
     };
 
+    this.getAllByName = function(req, res, urlRemove) {
+
+      var nameList = req.url.replace(urlRemove, "").split('/');
+
+      var jsonReturn = {};
+      jsonReturn.results = {};
+      jsonReturn.execTime = Math.round(new Date().getTime() / 1000).toString();
+
+      for (var i = 0; i < nameList.length; i++) {
+        try {
+          (function(index) {
+            includes.dbController.getAllEntriesByName(nameList[index], function(err, result) {
+              if (err) {
+                console.error(Math.round(new Date().getTime() / 1000).toString(), " | apiCallbacks::getByName(): Error:", err);
+                res.send({
+                  "nameList":nameList,
+                  "result":[],
+                  "error":"Error reading from database."
+                });
+              } else {
+                if (result) {
+                  var objContent = {};
+                  objContent = result;
+                  jsonReturn.results[nameList[index]] = objContent;
+                }
+
+                if (Object.keys(jsonReturn.results).length >= nameList.length) {
+                  res.send(jsonReturn);
+                }
+              }
+            });
+          })(i);
+        } catch (err) {
+          console.error(Math.round(new Date().getTime() / 1000).toString(), " | apiCallbacks::getByName(): Error:", err);
+          res.send({
+            "nameList":nameList,
+            "result":[],
+            "error":"Error reading from database."
+          });
+        }
+      }
+    }
+
+    this.getAllByID = function(req, res, urlRemove) {
+
+      var idList = req.url.replace(urlRemove, "").split('/');
+
+      var jsonReturn = {};
+      jsonReturn.results = {};
+      jsonReturn.execTime = Math.round(new Date().getTime() / 1000).toString();
+
+      for (var i = 0; i < idList.length; i++) {
+        try {
+          (function(index) {
+            includes.dbController.getAllEntriesByID(idList[index], function(err, result) {
+              if (err) {
+                console.error(Math.round(new Date().getTime() / 1000).toString(), " | apiCallbacks::getByID(): Error:", err);
+                res.send({
+                  "idList":idList,
+                  "result":[],
+                  "error":"Error reading from database."
+                });
+              } else {
+                if (result) {
+                  var objContent = {};
+                  objContent = result;
+                  jsonReturn.results[idList[index]] = objContent;
+                }
+                
+                if (Object.keys(jsonReturn.results).length >= idList.length) {
+                  res.send(jsonReturn);
+                }
+              }
+            });
+          })(i);
+        } catch (err) {
+          console.error(Math.round(new Date().getTime() / 1000).toString(), " | apiCallbacks::getByID(): Error:", err);
+          res.send({
+            "idList":idList,
+            "result":[],
+            "error":"Error reading from database."
+          });
+        }
+      }
+    }
+
     this.getByName = function(req, res, urlRemove, detailed) {
 
       var nameList = req.url.replace(urlRemove, "").split('/');

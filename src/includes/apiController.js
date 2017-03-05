@@ -54,6 +54,16 @@
         console.log("  [GET]::  /details/byname/*");
       }
 
+      includes.app.get('/all/byid/*', function(req, res) { includes.apiCallbacks.getAllByID(req, res, "/all/byid/"); });
+      if (2 & consoleLevel) {
+        console.log("  [GET]::  /all/byid/*");
+      }
+
+      includes.app.get('/all/byname/*', function(req, res) { includes.apiCallbacks.getAllByName(req, res, "/all/byname/"); });
+      if (2 & consoleLevel) {
+        console.log("  [GET]::  /all/byname/*");
+      }
+
       if (2 & consoleLevel) {
         console.log("");
         console.log(Math.round(new Date().getTime() / 1000).toString(), " | apiController::initREST(): Completed");

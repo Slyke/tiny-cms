@@ -3,6 +3,16 @@
 ## Description
 A WIP tiny CMS built in NodeJS
 
+## Setting Up (Native)
+1. Copy `secrets.json.example` and rename to `secrets.json`
+2. Update with your MongoDB details.
+3. Edit `settings.json` so that it uses your MongoDB server.
+4. Run `npm install` to install dependencies.
+5. Run `node app.js` or `npm start` to start the service.
+
+## Setting Up (Docker)
+1. Not yet implemented.
+
 ## Usage
 ### GET Requests
 
@@ -156,22 +166,44 @@ Example JSON Result:
     }
 ```
 
+#### Get All Entries by a Name
+
+You can update an entry via its name. The latest entry via a name will always be returned. You can still use older entries if you use their IDs.
+
+```
+    /details/byname/[name1]/[name2]/[name3]/...
+```
+
+Example:
+
+```
+    /details/byname/test1/test2/test3
+```
+
+Example JSON Result:
+```js
+    {
+        "results": {
+            "test1": {
+                "_id": "58bb2f1086126e15e4bbd79e",
+                "name": "test1",
+                "content": "test!",
+                "createdTime": "1488662288"
+            }
+        },
+        "noEntry": [
+            "test2",
+            "test3"
+        ],
+        "execTime": "1488685794"
+    }
+```
 ### POST
 
 For updating entries. None implemented yet.
-
-## Setting Up (Native)
-1. Copy `secrets.json.example` and rename to `secrets.json`
-2. Update with your MongoDB details.
-3. Edit `settings.json` so that it uses your MongoDB server.
-4. Run `npm install` to install dependencies.
-5. Run `node app.js` to start the service.
-
-## Setting Up (Docker)
-1. Not yet implemented.
 
 ## Planned Features
 * UAC on all entries.
 * Optional HOTP and TOTP authentication for CRUD.
 * Docker support (with optional integrated MongoDB database).
-* Show previous and next entries with detailed results.
+

@@ -82,6 +82,55 @@
         return db;
     }
 
+    this.getAllEntriesByID = function(entryID, foundCallback) {
+        var database = this.getcurrentDatabase();
+
+        try {
+            var cmsContentCollection = database.collection(collectionName, function(err, collection) {
+                if (err) {
+                    console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::getEntryByID(): Error reading record: ", err);
+                    foundCallback(err);
+                } else {
+                    try {
+                        collection.findOne({ "_id": new ObjectID(entryID) }, function (err, item) {
+                            includes.dbController.getAllEntriesByName(item.name, foundCallback);
+                        });
+                    } catch (err) {
+                        //Return an empty item instead of erroring the entire request.
+                        if (err.message.indexOf("String of 12 bytes or a string of 24 hex characters") > -1 || err.message.indexOf("hex is not a function") > -1 ) {
+                            foundCallback(null, {});
+                        } else {
+                            throw err;
+                        }
+                    }
+                }
+            });
+        } catch (err) {
+            console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::getEntryByID(): Error reading collection: ", err);
+            foundCallback(err);
+        }
+    }
+
+    this.getAllEntriesByName = function(entryName, foundCallback) {
+        var database = this.getcurrentDatabase();
+
+        try {
+            var cmsContentCollection = database.collection(collectionName, function(err, collection) {
+                if (err) {
+                    console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::getEntryByName(): Error reading record: ", err);
+                    foundCallback(err);
+                } else {
+                    collection.find({ $query: { "name": entryName } }).sort({"createdTime": 1}).toArray(function (err, item) {
+                        foundCallback(err, item);
+                    });
+                }
+            });
+        } catch (err) {
+            console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::getEntryByName(): Error reading collection: ", err);
+            foundCallback(err);
+        }
+    }
+
     this.getEntryByName = function(entryName, foundCallback) {
         var database = this.getcurrentDatabase();
 
