@@ -66,6 +66,33 @@ Example JSON Result:
     }
 ```
 
+#### Get Single Entry Without JSON Wrappers by ID:
+
+```
+    /singlebyid/[id]
+```
+
+Example:
+
+```
+    /singlebyid/58bb3977ac73503da0c87455
+```
+
+The result will be a plaintext file. If the result doesn't exist, or there is an error then an empty response will be returned.
+
+#### Get Single Entry Without JSON wrappers by Name:
+
+```
+    /singlebyname/[name]
+```
+
+Example:
+
+```
+    /singlebyid/test1
+```
+
+The result will be a plaintext file. If the result doesn't exist, or there is an error then an empty response will be returned.
 
 ### POST
 
@@ -86,4 +113,3 @@ For updating entries. None implemented yet.
 * Optional HOTP and TOTP authentication for CRUD
 * Docker support (with optional integrated MongoDB database)
 * Get details about entries through API.
-* When returning a single entry, do not use JSON, instead return plaintext.

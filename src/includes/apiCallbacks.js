@@ -118,6 +118,61 @@
       }
     };
 
+    this.getSingleByID = function(req, res) {
+
+      var requestedIDArr = req.url.split('/');
+
+      requestedIDArr.splice(0, 2); // Remove the "" and "/" on the front of the array.
+
+      var requestedID = requestedIDArr[0];
+
+      try {
+        includes.dbController.getEntryByID(requestedID, function(err, result) {
+          if (err) {
+            console.error(Math.round(new Date().getTime() / 1000).toString(), " | apiCallbacks::getSingleByID(): Error:", err);
+            res.send("");
+          } else {
+            if (result && result.content) {
+              res.send(result.content);
+            } else {
+              res.send("");
+            }
+          }
+        });
+      } catch (err) {
+        console.error(Math.round(new Date().getTime() / 1000).toString(), " | apiCallbacks::getSingleByID(): Error:", err);
+        res.send("");
+      }
+    };
+
+    this.getSingleByName = function(req, res) {
+
+      var requestedNameArr = req.url.split('/');
+
+      requestedNameArr.splice(0, 2); // Remove the "" and "/" on the front of the array.
+
+      var requestedName = requestedNameArr[0];
+
+      try {
+        
+        includes.dbController.getEntryByName(requestedName, function(err, result) {
+          if (err) {
+            console.error(Math.round(new Date().getTime() / 1000).toString(), " | apiCallbacks::getSingleByName(): Error:", err);
+            res.send("");
+          } else {
+            if (result[0] && result[0].content) {
+              res.send(result[0].content);
+            } else {
+              res.send("");
+            }
+          }
+        });
+      } catch (err) {
+        console.error(Math.round(new Date().getTime() / 1000).toString(), " | apiCallbacks::getSingleByName(): Error:", err);
+        res.send("");
+      }
+    };
+
     return this;
 
   }

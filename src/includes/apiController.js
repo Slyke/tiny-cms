@@ -34,6 +34,16 @@
         console.log("  [GET]::  /byname/*");
       }
 
+      includes.app.get('/singlebyid/*', includes.apiCallbacks.getSingleByID);
+      if (2 & consoleLevel) {
+        console.log("  [GET]::  /singlebyid/*");
+      }
+
+      includes.app.get('/singlebyname/*', includes.apiCallbacks.getSingleByName);
+      if (2 & consoleLevel) {
+        console.log("  [GET]::  /singlebyname/*");
+      }
+
       if (2 & consoleLevel) {
         console.log("");
         console.log(Math.round(new Date().getTime() / 1000).toString(), " | apiController::initREST(): Completed");
