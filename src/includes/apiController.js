@@ -64,6 +64,11 @@
         console.log("  [GET]::  /all/byname/*");
       }
 
+      includes.app.post('/add', includes.bodyParser.json(), function(req, res) { includes.apiCallbacks.addEntries(req, res, "/add"); });
+      if (2 & consoleLevel) {
+        console.log("  [POST]::  /add");
+      }
+
       if (2 & consoleLevel) {
         console.log("");
         console.log(Math.round(new Date().getTime() / 1000).toString(), " | apiController::initREST(): Completed");
@@ -72,6 +77,9 @@
 
     this.init = function () {
       this.initREST();
+
+      // includes.app.use(includes.bodyParser.urlencoded({ extended: false }));
+      // includes.app.use(includes.bodyParser.json());
 
       if (1 & consoleLevel || consoleLevel < 0) {
         console.log(Math.round(new Date().getTime() / 1000).toString(), " | apiController::init(): Completed");

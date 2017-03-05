@@ -21,6 +21,7 @@
     includes.apiController = require("./includes/apiController.js");
     includes.fs = require('fs');
     includes.mongoDBClient = require('mongodb').MongoClient;
+    includes.bodyParser = require('body-parser'); 
 
   };
 

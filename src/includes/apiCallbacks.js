@@ -15,12 +15,59 @@
 
     };
 
-    this.getEntry = function(req, res) {
-      //https://mongodb.github.io/node-mongodb-native/api-articles/nodekoarticle1.html
-      res.send({
-        "message":"bob"
-      });
-    };
+    this.addEntries = function(req, res) {
+
+      var addEntries;
+
+      try {
+        addEntries = JSON.parse(JSON.stringify(req.body));
+      } catch (err) {
+        console.error(Math.round(new Date().getTime() / 1000).toString(), " | apiCallbacks::addEntries(): Error, bad JSON:", err);
+        res.send({
+          "result":[],
+          "error":"Error: Couldn't understand JSON."
+        });
+        return err;
+      }
+      
+      var entriesAdded = [];
+      var entriesFailed = [];
+
+      try {
+        for (var i in addEntries.entries) {
+          (function(index){
+            includes.dbController.addEntry(index, addEntries.entries[index].content, null, function(err, result) {
+              if (!err && result) {
+                entriesAdded.push(index);
+              } else {
+                entriesFailed.push(index);
+              }
+              // console.log((entriesAdded.length + entriesFailed.length), Object.keys(addEntries.entries).length);
+              if ((entriesAdded.length + entriesFailed.length) >= Object.keys(addEntries.entries).length) {
+                res.send({
+                  "result":{
+                    "entriesAdded":entriesAdded,
+                    "failedEntries":entriesFailed
+                  }
+                });
+              }
+            });
+          })(i);
+        }
+      } catch(err) {
+        console.error(Math.round(new Date().getTime() / 1000).toString(), " | apiCallbacks::addEntries(): Error trying to add entry:", err);
+        entriesFailed.push(index);
+        if ((entriesAdded.length + entriesFailed.length) >= addEntries.entries.length) {
+          res.send({
+            "result":{
+              "entriesAdded":entriesAdded,
+              "failedEntries":entriesFailed
+            }
+          });
+        }
+      }
+
+    }
 
     this.getAllByName = function(req, res, urlRemove) {
 

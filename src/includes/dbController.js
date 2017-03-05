@@ -68,12 +68,6 @@
                 db = database;
                 dbCollection = cmsContentCollection;
 
-                //TODO: remove this trycatch block. For debug purposes.
-                // try {
-                //     cmsContentCollection.insertOne( { "name": "test1", "content": "test!", "createdTime": Math.round(new Date().getTime() / 1000).toString() } );
-                // } catch (e) {
-                //     console.log(e);
-                // };
             }
         });
     };
@@ -81,6 +75,27 @@
     this.getcurrentDatabase = function() {
         return db;
     }
+
+    this.addEntry = function(entryName, entryContent, createdTime, callback) {
+        var database = this.getcurrentDatabase();
+
+        createdTime = (createdTime ? createdTime : Math.round(new Date().getTime() / 1000).toString());
+        callback = (callback ? callback : function(){});
+
+        try {
+            var cmsContentCollection = database.collection(collectionName, function(err, collection) {
+                try {
+                    var result = collection.insertOne( { "name": entryName, "content": entryContent, "createdTime": createdTime }, callback );
+                } catch (err) {
+                    console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::addEntry(): Error writing to collection: ", err);
+                    callback("Error writing collection", []);
+                };
+            });
+        } catch (err) {
+            console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::addEntry(): Error getting collection: ", err);
+            callback("Error getting collection", []);
+        }
+    };
 
     this.getAllEntriesByID = function(entryID, foundCallback) {
         var database = this.getcurrentDatabase();
@@ -109,7 +124,7 @@
             console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::getEntryByID(): Error reading collection: ", err);
             foundCallback(err);
         }
-    }
+    };
 
     this.getAllEntriesByName = function(entryName, foundCallback) {
         var database = this.getcurrentDatabase();
@@ -129,7 +144,7 @@
             console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::getEntryByName(): Error reading collection: ", err);
             foundCallback(err);
         }
-    }
+    };
 
     this.getEntryByName = function(entryName, foundCallback) {
         var database = this.getcurrentDatabase();
@@ -149,7 +164,7 @@
             console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::getEntryByName(): Error reading collection: ", err);
             foundCallback(err);
         }
-    }
+    };
 
     this.getEntryByID = function(entryID, foundCallback) {
         var database = this.getcurrentDatabase();
@@ -178,7 +193,7 @@
             console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::getEntryByID(): Error reading collection: ", err);
             foundCallback(err);
         }
-    }
+    };
 
     this.init = function () {
 
@@ -190,7 +205,7 @@
         console.log(Math.round(new Date().getTime() / 1000).toString(), " | dbController::init(): Completed");
       }
 
-    }
+    };
 
     return this;
 

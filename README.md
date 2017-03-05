@@ -246,9 +246,38 @@ Example JSON Result:
     }
 ```
 
-### POST
+### POST Requests
 
-For updating entries. None implemented yet.
+#### Add One or More Entries
+
+POST URL:
+```
+    /all
+```
+
+JSON Structure:
+```js
+    {
+        "entries":{
+            EntryName: { "content": YourEntryHere},
+            anotherEntryName: {"content": YourEntryHere},
+            ...
+        }
+    }
+```
+
+Example POST JSON Body:
+
+```js
+    {
+        "entries":{
+            "testEntry": { "content": "First Test Entry!"},
+            "anotherEntry": {"content": "Another Entry!"}
+        }
+    }
+```
+
+The created time will be added automatically.
 
 ## Planned Features
 * UAC on all entries.
