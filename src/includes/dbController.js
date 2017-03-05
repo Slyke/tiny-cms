@@ -98,7 +98,7 @@
                     } catch (err) {
                         //Return an empty item instead of erroring the entire request.
                         if (err.message.indexOf("String of 12 bytes or a string of 24 hex characters") > -1 || err.message.indexOf("hex is not a function") > -1 ) {
-                            foundCallback(null, {});
+                            foundCallback(null, []);
                         } else {
                             throw err;
                         }
