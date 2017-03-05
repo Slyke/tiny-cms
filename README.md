@@ -8,7 +8,7 @@ A WIP tiny CMS built in NodeJS
 
 #### Get Entries by ID
 
-This will return an entry by ID, entries by do not change (Unless you manually change them in the database).
+This will return an entry by ID, entries by ID do not change (Unless you manually change them in the database).
 
 ```
     /byid/[id1]/[id2]/[id3]/...
