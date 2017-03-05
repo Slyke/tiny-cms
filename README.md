@@ -168,28 +168,36 @@ Example JSON Result:
 
 #### Get All Entries by a Name
 
-You can update an entry via its name. The latest entry via a name will always be returned. You can still use older entries if you use their IDs.
+This will return a list of all versions of entries listed
 
 ```
-    /details/byname/[name1]/[name2]/[name3]/...
+    /all/byname/[name1]/[name2]/[name3]/...
 ```
 
 Example:
 
 ```
-    /details/byname/test1/test2/test3
+    /all/byname/test1/test2/test3
 ```
 
 Example JSON Result:
 ```js
     {
         "results": {
-            "test1": {
-                "_id": "58bb2f1086126e15e4bbd79e",
-                "name": "test1",
-                "content": "test!",
-                "createdTime": "1488662288"
-            }
+            "test1": [
+                {
+                    "_id": "58bb2f1086126e15e4bbd79e",
+                    "name": "test1",
+                    "content": "test!",
+                    "createdTime": "1488662288"
+                },
+                {
+                    "_id": "58bb34bf0ee3ac37ec962ad8",
+                    "name": "test1",
+                    "content": "another test!",
+                    "createdTime": "1488663743"
+                }
+            ]
         },
         "noEntry": [
             "test2",
@@ -198,6 +206,46 @@ Example JSON Result:
         "execTime": "1488685794"
     }
 ```
+
+#### Get All Entries by ID
+
+This will return an entry by ID, entries by do not change (Unless you manually change them in the database).
+
+```
+    /all/byid/[id1]/[id2]/[id3]/...
+```
+
+Example:
+
+```
+    /all/byid/58bb3977ac73503da0c87455/58bb3977ac73503da0c67365/58bb3977ac73503da0c91056
+```
+
+Example JSON Result:
+```js
+    {
+        "results": {
+            "58bb357d976d2104b0e0571c": [
+                {
+                    "_id": "58bb2f1086126e15e4bbd79e",
+                    "name": "test1",
+                    "content": "test!",
+                    "createdTime": "1488662288"
+                },
+                {
+                    "_id": "58bb34bf0ee3ac37ec962ad8",
+                    "name": "test1",
+                    "content": "another test!",
+                    "createdTime": "1488663743"
+                }
+            ],
+            "58bb3977ac73503da0c67365": {},
+            "58bb3977ac73503da0c91056": {},
+        },
+        "execTime": "1488685794"
+    }
+```
+
 ### POST
 
 For updating entries. None implemented yet.
