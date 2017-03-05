@@ -29,7 +29,7 @@
       nameList.splice(0, 2); // Remove the "" and "/" on the front of the array.
 
       var jsonReturn = {};
-      jsonReturn.results = [];
+      jsonReturn.results = {};
       jsonReturn.noEntry = [];
       jsonReturn.execTime = Math.round(new Date().getTime() / 1000).toString();
 
@@ -48,16 +48,16 @@
                 if (result[0] && result[0].content) {
                   var objContent = {};
                   if (detailed) {
-                    objContent[nameList[index]] = result[0];
+                    objContent = result[0];
                   } else {
-                    objContent[nameList[index]] = result[0].content;
+                    objContent = result[0].content;
                   }
-                  jsonReturn.results.push(objContent);
+                  jsonReturn.results[nameList[index]] = objContent;
                 } else {
                   jsonReturn.noEntry.push(nameList[index]);
                 }
 
-                if ((jsonReturn.results.length + jsonReturn.noEntry.length) >= nameList.length) {
+                if ((Object.keys(jsonReturn.results).length + jsonReturn.noEntry.length) >= nameList.length) {
                   res.send(jsonReturn);
                 }
               }
@@ -81,7 +81,7 @@
       idList.splice(0, 2); // Remove the "" and "/" on the front of the array.
 
       var jsonReturn = {};
-      jsonReturn.results = [];
+      jsonReturn.results = {};
       jsonReturn.noEntry = [];
       jsonReturn.execTime = Math.round(new Date().getTime() / 1000).toString();
 
@@ -100,16 +100,16 @@
                 if (result && result.content) {
                   var objContent = {};
                   if (detailed) {
-                    objContent[idList[index]] = result;
+                    objContent = result;
                   } else {
-                    objContent[idList[index]] = result.content;
+                    objContent = result.content;
                   }
-                  jsonReturn.results.push(objContent);
+                  jsonReturn.results[idList[index]] = objContent;
                 } else {
                   jsonReturn.noEntry.push(idList[index]);
                 }
-
-                if ((jsonReturn.results.length + jsonReturn.noEntry.length) >= idList.length) {
+                
+                if ((Object.keys(jsonReturn.results).length + jsonReturn.noEntry.length) >= idList.length) {
                   res.send(jsonReturn);
                 }
               }

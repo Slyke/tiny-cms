@@ -23,11 +23,9 @@ Example:
 Example JSON Result:
 ```js
     {
-        "results": [
-            {
-                "58bb3977ac73503da0c87455": "test!"
-            }
-        ],
+        "results": {
+            "58bb3977ac73503da0c87455": "test!"
+        },
         "noEntry": [
             "58bb3977ac73503da0c67365",
             "58bb3977ac73503da0c91056"
@@ -53,11 +51,9 @@ Example:
 Example JSON Result:
 ```js
     {
-        "results": [
-            {
-                "test1": "Hello World!"
-            }
-        ],
+        "results": {
+            "test1": "Hello World!"
+        },
         "noEntry": [
             "test2",
             "test3"
@@ -111,16 +107,14 @@ Example:
 Example JSON Result:
 ```js
     {
-        "results": [
-            {
-                "58bb2f1086126e15e4bbd79e": {
-                    "_id": "58bb2f1086126e15e4bbd79e",
-                    "name": "test1",
-                    "content": "test!",
-                    "createdTime": "1488662288"
-                }
+        "results": {
+            "58bb2f1086126e15e4bbd79e": {
+                "_id": "58bb2f1086126e15e4bbd79e",
+                "name": "test1",
+                "content": "test!",
+                "createdTime": "1488662288"
             }
-        ],
+        },
         "noEntry": [
             "58bb3977ac73503da0c67365",
             "58bb3977ac73503da0c91056"
@@ -146,16 +140,14 @@ Example:
 Example JSON Result:
 ```js
     {
-        "results": [
-            {
-                "test1": {
-                    "_id": "58bb2f1086126e15e4bbd79e",
-                    "name": "test1",
-                    "content": "test!",
-                    "createdTime": "1488662288"
-                }
+        "results": {
+            "test1": {
+                "_id": "58bb2f1086126e15e4bbd79e",
+                "name": "test1",
+                "content": "test!",
+                "createdTime": "1488662288"
             }
-        ],
+        },
         "noEntry": [
             "test2",
             "test3"

@@ -34,12 +34,12 @@
         console.log("  [GET]::  /detailsbyname/*");
       }
 
-      includes.app.get('/byid/*', includes.apiCallbacks.getByID);
+      includes.app.get('/byid/*', function(req, res) { includes.apiCallbacks.getByID(req, res, false); });
       if (2 & consoleLevel) {
         console.log("  [GET]::  /byid/*");
       }
 
-      includes.app.get('/byname/*', includes.apiCallbacks.getByName);
+      includes.app.get('/byname/*', function(req, res) { includes.apiCallbacks.getByName(req, res, false); });
       if (2 & consoleLevel) {
         console.log("  [GET]::  /byname/*");
       }
