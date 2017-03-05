@@ -277,6 +277,7 @@ Example POST JSON Body:
     }
 ```
 
+The server will reply with details about the entries that you just added.
 
 Example reply JSON when adding:
 
@@ -286,22 +287,22 @@ Example reply JSON when adding:
             "entriesAdded": [
             {
                 "testEntry": [
-                {
-                    "name": "testEntry",
-                    "content": "First Test Entry!",
-                    "createdTime": "1488753860",
-                    "_id": "58bc94c398d9b244a43c3127"
-                }
+                    {
+                        "name": "testEntry",
+                        "content": "First Test Entry!",
+                        "createdTime": "1488753860",
+                        "_id": "58bc94c398d9b244a43c3127"
+                    }
                 ]
             },
             {
                 "anotherEntry": [
-                {
-                    "name": "anotherEntry1",
-                    "content": "Another Entry!",
-                    "createdTime": "1488753860",
-                    "_id": "58bc94c398d9b244a43c3128"
-                }
+                    {
+                        "name": "anotherEntry1",
+                        "content": "Another Entry!",
+                        "createdTime": "1488753860",
+                        "_id": "58bc94c398d9b244a43c3128"
+                    }
                 ]
             }
             ],
