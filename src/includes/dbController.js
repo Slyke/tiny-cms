@@ -16,6 +16,7 @@
   // */
 
   var dbController = function(includes, settings, consoleLevel, secrets) {
+    var ObjectID = require('mongodb').ObjectID;
 
     var db;
     var dbCollection;
@@ -100,21 +101,32 @@
         }
     }
 
-    this.getEntryByID = function(entryName, errorCallback, foundCallback) {
+    this.getEntryByID = function(entryID, foundCallback) {
         var database = this.getcurrentDatabase();
 
         try {
             var cmsContentCollection = database.collection('CMScontent', function(err, collection) {
                 if (err) {
                     console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::getEntryByID(): Error reading record: ", err);
-                    errorCallback(err);
+                    foundCallback(err);
                 } else {
-                    collection.findOne({"name": entryName, $orderby: { "createdTime" : 1 } }, foundCallback);
+                    try {
+                        collection.findOne({ "_id": new ObjectID(entryID) }, function (err, item) {
+                            foundCallback(err, item);
+                        });
+                    } catch (err) {
+                        //Return an empty item instead of erroring the entire request.
+                        if (err.message.indexOf("String of 12 bytes or a string of 24 hex characters") > -1 || err.message.indexOf("hex is not a function") > -1 ) {
+                            foundCallback(null, {});
+                        } else {
+                            throw err;
+                        }
+                    }
                 }
             });
         } catch (err) {
             console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::getEntryByID(): Error reading collection: ", err);
-            errorCallback(err);
+            foundCallback(err);
         }
     }
 

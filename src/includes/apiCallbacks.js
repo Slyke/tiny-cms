@@ -76,18 +76,46 @@
 
       idList.splice(0, 2); // Remove the "" and "/" on the front of the array.
 
-      includes.dbController.getEntryByName(idList[0], function(err, result) {
-        if (err) {
+      var jsonReturn = {};
+      jsonReturn.results = [];
+      jsonReturn.noEntry = [];
+      jsonReturn.execTime = Math.round(new Date().getTime() / 1000).toString();
+
+      for (var i = 0; i < idList.length; i++) {
+        try {
+          (function(index) {
+            includes.dbController.getEntryByID(idList[index], function(err, result) {
+              if (err) {
+                console.error(Math.round(new Date().getTime() / 1000).toString(), " | apiCallbacks::getByID(): Error:", err);
+                res.send({
+                  "idList":idList,
+                  "result":[],
+                  "error":"Error reading from database."
+                });
+              } else {
+                if (result && result.content) {
+                  var objContent = {};
+                  objContent[idList[index]] = result.content;
+                  jsonReturn.results.push(objContent);
+                } else {
+                  jsonReturn.noEntry.push(idList[index]);
+                }
+
+                if ((jsonReturn.results.length + jsonReturn.noEntry.length) >= idList.length) {
+                  res.send(jsonReturn);
+                }
+              }
+            });
+          })(i);
+        } catch (err) {
           console.error(Math.round(new Date().getTime() / 1000).toString(), " | apiCallbacks::getByID(): Error:", err);
-        } else {
           res.send({
             "idList":idList,
-            "result":result
+            "result":[],
+            "error":"Error reading from database."
           });
         }
-      })
-
-
+      }
     };
 
     return this;
