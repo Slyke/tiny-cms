@@ -95,7 +95,7 @@ Example JSON Result:
     }
 ```
 
-#### Get Single Entry Without JSON Wrappers by ID:
+#### Get Single Entry Without JSON Wrappers by ID
 
 ```
     /single/byid/[id]
