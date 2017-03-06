@@ -1,3 +1,23 @@
+- [Tiny CMS](#tiny-cms)
+  * [Description](#description)
+  * [Setting Up (Native)](#setting-up--native-)
+  * [Setting Up (Docker)](#setting-up--docker-)
+  * [Usage](#usage)
+    + [GET Requests](#get-requests)
+      - [Get Entries by ID](#get-entries-by-id)
+      - [Get Entries by Name](#get-entries-by-name)
+      - [Get Single Entry Without JSON Wrappers by ID:](#get-single-entry-without-json-wrappers-by-id-)
+      - [Get Single Entry Without JSON wrappers by Name:](#get-single-entry-without-json-wrappers-by-name-)
+      - [Get Detailed Entries by ID](#get-detailed-entries-by-id)
+      - [Get Detailed Entries by Name](#get-detailed-entries-by-name)
+      - [Get All Entries by a Name](#get-all-entries-by-a-name)
+      - [Get All Entries by ID](#get-all-entries-by-id)
+    + [POST Requests](#post-requests)
+      - [Add One or More Entries](#add-one-or-more-entries)
+      - [Delete One or More Entries by ID](#delete-one-or-more-entries-by-id)
+      - [Delete One or More Entries by Name](#delete-one-or-more-entries-by-name)
+  * [Planned Features](#planned-features)
+
 # Tiny CMS
 
 ## Description
