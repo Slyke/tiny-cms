@@ -57,7 +57,21 @@
                         }
                     });
                 } else {
-                    cmsContentCollection = database.createCollection(collectionName, {strict:true}, function(err, collection) {
+                    var databaseOptions = {};
+
+                    databaseOptions.strict = true;
+
+                    if (settings.collectionCap) {
+                        databaseOptions.capped = settings.collectionCap.capped;
+                        if (databaseOptions.capped) {
+                            databaseOptions.size = settings.collectionCap.size;
+                            if (settings.collectionCap.max != null && settings.collectionCap.max != undefined) {
+                                databaseOptions.max = settings.collectionCap.max;
+                            }
+                        }
+                    }
+                    
+                    cmsContentCollection = database.createCollection(collectionName, databaseOptions, function(err, collection) {
                         if (err) {
                             console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::initDB(): Error creating collection: ", err);
                         } else {
@@ -67,7 +81,6 @@
                 }
                 db = database;
                 dbCollection = cmsContentCollection;
-
             }
         });
     };
@@ -75,6 +88,46 @@
     this.getcurrentDatabase = function() {
         return db;
     }
+
+    this.deleteEntryByID = function(entryID, foundCallback) {
+        var database = this.getcurrentDatabase();
+
+        try {
+            var cmsContentCollection = database.collection(collectionName, function(err, collection) {
+                if (err) {
+                    console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::deleteEntryByID(): Error deleting record: ", err);
+                    foundCallback(err);
+                } else {
+                    collection.remove({ "_id": new ObjectID(entryID) }, function (err, item) {
+                        foundCallback(err, item);
+                    });
+                }
+            });
+        } catch (err) {
+            console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::deleteEntryByID(): Error reading from collection for delete: ", err);
+            foundCallback(err);
+        }
+    };
+
+    this.deleteEntryByName = function(entryName, foundCallback) {
+        var database = this.getcurrentDatabase();
+
+        try {
+            var cmsContentCollection = database.collection(collectionName, function(err, collection) {
+                if (err) {
+                    console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::deleteEntryByName(): Error reading from collection for delete: ", err);
+                    foundCallback(err);
+                } else {
+                    collection.remove({ "name": entryName }, function (err, item) {
+                        foundCallback(err, item);
+                    });
+                }
+            });
+        } catch (err) {
+            console.error(Math.round(new Date().getTime() / 1000).toString(), " | dbController::deleteEntryByName(): Error reading collection: ", err);
+            foundCallback(err);
+        }
+    };
 
     this.addEntry = function(entryName, entryContent, createdTime, callback) {
         var database = this.getcurrentDatabase();

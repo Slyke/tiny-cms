@@ -315,6 +315,64 @@ Example reply JSON when adding:
 
 The created time will be added automatically.
 
+#### Delete One or More Entries by ID
+
+This will remove one or more entries by ID.
+
+```
+    /delete/byid/[id1]/[id2]/[id3]/...
+```
+
+Example:
+
+```
+    /delete/byid/58bb3977ac73503da0c87455/58bb3977ac73503da0c67365/58bb3977ac73503da0c91056
+```
+
+Example of results returned by server:
+
+```js
+    {
+        "entriesDeleted": [
+            "58bb3977ac73503da0c87455"
+        ],
+        "failedEntries": [
+            "58bb3977ac73503da0c67365",
+            "58bb3977ac73503da0c91056"
+        ],
+        "execTime": "1488685794"
+    }
+```
+
+#### Delete One or More Entries by Name
+
+This will remove one or more entries by Name. Please note that this will delete an entire chain of entries, not just the latest one.
+
+```
+    /delete/byname/[name1]/[name2]/[name3]/...
+```
+
+Example:
+
+```
+    /delete/byname/test1/test2/test3
+```
+
+Example of results returned by server:
+
+```js
+    {
+        "entriesDeleted": [
+            "test1"
+        ],
+        "failedEntries": [
+            "test2",
+            "test3"
+        ],
+        "execTime": "1488685794"
+    }
+```
+
 ## Planned Features
 * UAC on all entries.
 * Optional HOTP and TOTP authentication for CRUD.

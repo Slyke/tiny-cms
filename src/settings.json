@@ -8,7 +8,12 @@
     "connectionDomain":"ds157278.mlab.com",
     "connectionPort":"57278",
     "databaseName":"sea-em-es",
-    "contentCollectionName": "CMScontent"
+    "contentCollectionName": "CMScontent",
+    "collectionCap": {
+      "capped":false,
+      "size": 5242880, 
+      "max" : 5000
+    }
   },
   "network": {
     "http" : {

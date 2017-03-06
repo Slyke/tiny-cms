@@ -69,6 +69,16 @@
         console.log("  [POST]::  /add");
       }
 
+      includes.app.post('/delete/byname/*', includes.bodyParser.json(), function(req, res) { includes.apiCallbacks.deleteEntriesByName(req, res, "/delete/byname/"); });
+      if (2 & consoleLevel) {
+        console.log("  [POST]::  /delete/byname/*");
+      }
+
+      includes.app.post('/delete/byid/*', includes.bodyParser.json(), function(req, res) { includes.apiCallbacks.deleteEntriesByID(req, res, "/delete/byid/"); });
+      if (2 & consoleLevel) {
+        console.log("  [POST]::  /delete/byid/*");
+      }
+
       if (2 & consoleLevel) {
         console.log("");
         console.log(Math.round(new Date().getTime() / 1000).toString(), " | apiController::initREST(): Completed");

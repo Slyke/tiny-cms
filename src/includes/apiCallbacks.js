@@ -15,6 +15,94 @@
 
     };
 
+    this.deleteEntriesByID = function(req, res, urlRemove) {
+
+      var idList = req.url.replace(urlRemove, "").split('/');
+
+      var jsonReturn = {};
+      jsonReturn.entriesDeleted = [];
+      jsonReturn.failedEntries = [];
+      jsonReturn.execTime = Math.round(new Date().getTime() / 1000).toString();
+
+      for (var i = 0; i < idList.length; i++) {
+        try {
+          (function(index) {
+            includes.dbController.deleteEntryByID(idList[index], function(err, result) {
+              if (err) {
+                console.error(Math.round(new Date().getTime() / 1000).toString(), " | apiCallbacks::deleteEntriesByID(): Error:", err);
+                res.send({
+                  "idList":idList,
+                  "result":[],
+                  "error":"Error deleting from database."
+                });
+              } else {
+                if (result && result) {
+                  jsonReturn.entriesDeleted.push(idList[index]);
+                } else {
+                  jsonReturn.failedEntries.push(idList[index]);
+                }
+
+                if ((jsonReturn.entriesDeleted.length + jsonReturn.failedEntries.length) >= idList.length) {
+                  res.send(jsonReturn);
+                }
+              }
+            });
+          })(i);
+        } catch (err) {
+          console.error(Math.round(new Date().getTime() / 1000).toString(), " | apiCallbacks::deleteEntriesByID(): Error:", err);
+          res.send({
+            "idList":idList,
+            "result":[],
+            "error":"Error attempting to delete from database."
+          });
+        }
+      }
+    };
+
+    this.deleteEntriesByName = function(req, res, urlRemove) {
+
+      var nameList = req.url.replace(urlRemove, "").split('/');
+
+      var jsonReturn = {};
+      jsonReturn.entriesDeleted = [];
+      jsonReturn.failedEntries = [];
+      jsonReturn.execTime = Math.round(new Date().getTime() / 1000).toString();
+
+      for (var i = 0; i < nameList.length; i++) {
+        try {
+          (function(index) {
+            includes.dbController.deleteEntryByName(nameList[index], function(err, result) {
+              if (err) {
+                console.error(Math.round(new Date().getTime() / 1000).toString(), " | apiCallbacks::deleteEntriesByName(): Error:", err);
+                res.send({
+                  "nameList":nameList,
+                  "result":[],
+                  "error":"Error deleting from database."
+                });
+              } else {
+                if (result && result) {
+                  jsonReturn.entriesDeleted.push(nameList[index]);
+                } else {
+                  jsonReturn.failedEntries.push(nameList[index]);
+                }
+
+                if ((jsonReturn.entriesDeleted.length + jsonReturn.failedEntries.length) >= nameList.length) {
+                  res.send(jsonReturn);
+                }
+              }
+            });
+          })(i);
+        } catch (err) {
+          console.error(Math.round(new Date().getTime() / 1000).toString(), " | apiCallbacks::deleteEntriesByName(): Error:", err);
+          res.send({
+            "nameList":nameList,
+            "result":[],
+            "error":"Error attempting to delete from database."
+          });
+        }
+      }
+    };
+
     this.addEntries = function(req, res) {
 
       var addEntries;
@@ -67,7 +155,6 @@
           });
         }
       }
-
     }
 
     this.getAllByName = function(req, res, urlRemove) {
