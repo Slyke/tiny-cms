@@ -1,3 +1,11 @@
+
+# Tiny CMS
+
+## Description
+A WIP tiny CMS built in NodeJS
+
+## Contents
+
 - [Tiny CMS](#tiny-cms)
   * [Description](#description)
   * [Setting Up (Native)](#setting-up--native-)
@@ -17,11 +25,6 @@
       - [Delete One or More Entries by ID](#delete-one-or-more-entries-by-id)
       - [Delete One or More Entries by Name](#delete-one-or-more-entries-by-name)
   * [Planned Features](#planned-features)
-
-# Tiny CMS
-
-## Description
-A WIP tiny CMS built in NodeJS
 
 ## Setting Up (Native)
 1. Copy `secrets.json.example` and rename to `secrets.json`
